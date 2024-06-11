@@ -57,7 +57,15 @@ def train(
     with mlflow.start_run():
         model_fn = get_model_fn_from_name(model)
         mlflow.set_tag("model", model)
+            # Log the features dataframe as an artifact
+        features_path = "features.csv"
+        features.to_csv(features_path, index=False)
+        mlflow.log_artifact(features_path, artifact_path="features")
 
+        # Log the target dataframe as an artifact
+        target_path = "target.csv"
+        target.to_csv(target_path, index=False)
+        mlflow.log_artifact(target_path, artifact_path="target")
         # Log basic info
         log_param("model", model)
         log_param("tune_hyperparams", tune_hyperparams)

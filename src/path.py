@@ -2,7 +2,8 @@ from pathlib import Path
 import os
 
 PARENT_DIR = Path(__file__).parent.resolve().parent
-DATA_DIR = PARENT_DIR / 'data'
+DATA_DIR = PARENT_DIR / 'data/' + 'raw'
+PROCESSED_DATA = PARENT_DIR / 'data/' + 'processed'
 MODELS_DIR = PARENT_DIR / 'models'
 
 if not Path(DATA_DIR).exists():

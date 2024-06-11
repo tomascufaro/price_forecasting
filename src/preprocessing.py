@@ -9,7 +9,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.pipeline import make_pipeline, Pipeline
 from sklearn.preprocessing import FunctionTransformer
 
-from src.path import DATA_DIR
+from src.path import DATA_DIR, PROCESSED_DATA
 from src.logger import get_console_logger
 
 logger = get_console_logger()
@@ -17,6 +17,7 @@ logger = get_console_logger()
 def transform_ts_data_into_features_and_target(
     # ts_data: pd.DataFrame,
     path_to_input: Optional[Path] = DATA_DIR / 'ohlc_data.parquet',
+    path_to_output: Optional[Path] = PROCESSED_DATA / 'ohlc_data.parquet',
     input_seq_len: Optional[int] = 24,
     step_size: Optional[int] = 1
 ) -> Tuple[pd.DataFrame, pd.Series]:
@@ -62,7 +63,14 @@ def transform_ts_data_into_features_and_target(
 
     # numpy -> pandas
     targets = pd.DataFrame(y, columns=[f'target_price_next_hour'])
-
+    
+    # save the data to disk
+    logger.info('Saving data to disk')
+    file_name_y = path_to_output / f'processed_data_target.parquet'
+    file_name_x = path_to_output / f'processed_data_features.parquet'
+    logger.info(f'Downloading processed data')
+    features.to_parquet(file_name_y, index=False)
+    targets.to_parquet(file_name_x, index=False)
     return features, targets['target_price_next_hour']
 
 def get_cutoff_indices_features_and_target(
@@ -148,7 +156,9 @@ def get_preprocessing_pipeline(
         FunctionTransformer(get_subset_of_features)
     )
 
+
 if __name__ == '__main__':
+    #testing 
     
     features, target = fire.Fire(transform_ts_data_into_features_and_target)
     
