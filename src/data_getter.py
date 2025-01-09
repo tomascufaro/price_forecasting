@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 import fire
+#comand cli interface generator: fire
 from alpaca.data.historical import StockHistoricalDataClient
 from alpaca.data.requests import StockBarsRequest
 from alpaca.data.timeframe import TimeFrame
