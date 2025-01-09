@@ -8,7 +8,7 @@ packages = [{include = "src"},]
 
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.9,<3.12"
 requests = "^2.30.0"
 pandas = "1.5.3"
 fire = "^0.5.0"
@@ -20,7 +20,6 @@ xgboost = "^1.7.5"
 lightgbm = "^3.3.5"
 optuna = "^3.1.1"
 comet-ml = "3.32.6"
-cerebrium = "^1.1.1"
 torch = "1.13.1"
 pydantic = "^2.1.1"
 alpaca-py = "*"
